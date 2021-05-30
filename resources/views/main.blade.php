@@ -18,7 +18,7 @@
 
     <title>L.M.S</title>
 </head>
-<body class="green accent-1">
+<body class="grey lighten-4">
 
     <form action="{{route('logout')}}" method="get" style="display: none" id="logout">
         @csrf
@@ -26,18 +26,18 @@
     </form>
 
     <nav>
-        <div class="nav-wrapper blue lighten-3">
+        <div class="nav-wrapper grey darken-4">
             <a href="#!" class="brand-logo">L.M.S</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="{{route('home')}}" class="hoverable hover:text-black">Home</a></li>
-                <li><a href="{{route('show.all.books')}}" class="hoverable hover:text-black">All Books</a></li>
+                <li><a href="{{route('home')}}" class="hoverable hover:text-red-300">Home</a></li>
+                <li><a href="{{route('show.all.books')}}" class="hoverable hover:text-yellow-300">All Books</a></li>
                 @if(session()->has('student_id'))
-                    <li><a href="{{route('show.all.orders')}}" class="hoverable hover:text-black">All Orders</a></li>
+                    <li><a href="{{route('show.all.orders')}}" class="hoverable hover:text-green-300">All Orders</a></li>
                 @elseif(session()->has('librarian_id'))
-                    <li><a href="{{route('show.all.books')}}" class="hoverable hover:text-black">All Requests</a></li>
+                    <li><a href="{{route('show.all.requests')}}" class="hoverable hover:text-blue-300">All Requests</a></li>
                 @endif
-                <li><a onclick="document.getElementById('logout').submit();" class="hoverable hover:text-black">Logout</a></li>
+                <li><a onclick="document.getElementById('logout').submit();" class="hoverable hover:text-yellow-600">Logout</a></li>
 
             </ul>
         </div>
@@ -46,6 +46,11 @@
     <ul class="sidenav" id="mobile-demo">
         <li><a href="{{route('home')}}">Home</a></li>
         <li><a href="{{route('show.all.books')}}">All Books</a></li>
+        @if(session()->has('student_id'))
+            <li><a href="{{route('show.all.orders')}}" class="hoverable hover:text-black">All Orders</a></li>
+        @elseif(session()->has('librarian_id'))
+            <li><a href="{{route('show.all.requests')}}" class="hoverable hover:text-black">All Requests</a></li>
+        @endif
         <li><a onclick="document.getElementById('logout').submit();">Logout</a></li>
     </ul>
 

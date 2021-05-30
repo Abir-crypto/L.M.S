@@ -41,8 +41,9 @@ class HomeController extends Controller
             $books = Book::all();
             $book_taken = Book_taken::all();
             $recommendation = Recommendation::all();
+            $return = Book_taken::where('permission', true)->get();
 //        dd($books);
-            return view('home', compact('librarian', 'books', 'book_taken', 'recommendation'));
+            return view('home', compact('librarian', 'books', 'book_taken', 'recommendation', 'return'));
         }
     }
 }

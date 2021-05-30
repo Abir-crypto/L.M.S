@@ -20,21 +20,21 @@
     <p class="flow-text ">
         Registration Form
     </p>
-    <form action="{{route('register.user')}}" method="post">
+    <form action="{{route('sign.up')}}" method="post">
         @csrf
-        <input type="text" name="name" placeholder="Full Name" class="input-field">
+        <input type="text" name="full_name" placeholder="Full Name" class="input-field">
         <input type="email" name="email" placeholder="Email" class="input-field">
         <input type="password" name="password" placeholder="Password" class="input-field">
 
         <p class="flow-text">
             <label>
-                <input name="group1" type="radio" />
+                <input name="group" type="radio" value="0"/>
                 <span>Student</span>
             </label>
         </p>
         <p class="flow-text">
             <label>
-                <input name="group1" type="radio" />
+                <input name="group" type="radio" value="1"/>
                 <span>Librarian</span>
             </label>
         </p>

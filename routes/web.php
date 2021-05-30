@@ -5,8 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +19,21 @@ use Illuminate\Http\Request;
 |
 */
 
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
+
+
+
+
 Route::get('/', [LoginController::class, 'gotoLoginPage'])->name('login.page');
 Route::post('/login/user', [LoginController::class, 'login'])->name('login.user');
 Route::get('/register', [RegistrationController::class, 'gotoRegisterPage'])->name('register.page');
-Route::post('/signup', [RegistrationController::class, 'RegisterUser'])->name('register.user');
+Route::post('/signup', [RegistrationController::class, 'signUp'])->name('sign.up');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/home', [HomeController::class, 'home'])->name('home');
 
@@ -38,24 +49,9 @@ Route::patch('/accept/{book_taken}/req', [BookController::class, 'acceptRequest'
 Route::get('/add/book', [BookController::class, 'gotoBookAddPage'])->name('add.book.page');
 Route::post('/add/book', [BookController::class, 'addBook'])->name('add.book');
 Route::post('/recommend/book', [BookController::class, 'recommendBook'])->name('recommend.book');
+Route::get('/return/all/book', [BookController::class, 'showReturnPage'])->name('return.all.book');
+Route::patch('/accept/{book_taken}/return', [BookController::class, 'returnBook'])->name('return.book');
 
-//
-//Route::get('/email/verify', function () {
-//    return view('auth.verify-email');
-//})->middleware('auth')->name('verification.notice');
-//
-//Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-//    $request->fulfill();
-//
-//    return redirect('/home');
-//})->middleware(['auth', 'signed'])->name('verification.verify');
-//
-//Route::post('/email/verification-notification', function (Request $request) {
-//    $request->user()->sendEmailVerificationNotification();
-//
-//    return back()->with('message', 'Verification link sent!');
-//})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::get('verification/{student}/code/{verification}', [RegistrationController::class, 'verificationCode'])->name('verify');
+Route::post('verify/{student}/mail', [RegistrationController::class, 'verifyMail'])->name('verify.page');
 
-//Route::get('/profile', function () {
-//    // Only verified users may access this route...
-//})->middleware('verified');

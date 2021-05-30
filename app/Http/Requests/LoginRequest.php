@@ -27,7 +27,6 @@ class LoginRequest extends FormRequest
             'email' => 'required',
             'password' => 'required',
             'group' => 'required',
-
         ];
     }
 }

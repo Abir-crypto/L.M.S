@@ -19,7 +19,7 @@ class CreateBookTakensTable extends Migration
             $table->bigInteger('book_id');
             $table->string('book_name');
             $table->boolean('permission')->default(false);
-            $table->time('return_date')->nullable();
+            $table->date('return_date')->nullable();
             $table->timestamps();
         });
     }

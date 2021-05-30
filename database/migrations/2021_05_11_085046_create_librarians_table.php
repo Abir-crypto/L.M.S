@@ -18,6 +18,7 @@ class CreateLibrariansTable extends Migration
             $table->string('full_name');
             $table->string('email')->unique();
             $table->text('password');
+            $table->boolean('isVerified')->default(false);
             $table->timestamps();
         });
     }

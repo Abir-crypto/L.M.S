@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Book_taken;
 use App\Models\Recommendation;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -22,6 +23,12 @@ class BookController extends Controller
         return view('allBooks', compact('books'));
     }
 
+    public function showReturnPage(){
+        $books_taken = Book_taken::all();
+
+        return view('return', compact('books_taken'));
+    }
+
     public function addToCart(Book $book){
         $sid = session()->get('student_id');
 //        $student = Student::find($sid);
@@ -32,11 +39,14 @@ class BookController extends Controller
             }
         }
         if($book->count>0) {
+            $x = Carbon::now();
+            $x->addDay(10);
             $data = [
                 'student_id' => $sid,
                 'book_id' => $book->id,
                 'book_name' => $book->book_name,
-                'return_date' => now(),
+                'return_date' => $x,
+
             ];
             Book_taken::create($data);
             $count = $book->count;
@@ -48,6 +58,17 @@ class BookController extends Controller
         else{
             return redirect()->back()->with('msg', 'No copy Available');
         }
+    }
+
+    public function returnBook(Book_taken $book_taken){
+        $diff = Carbon::now()->diffInDays($book_taken->return);
+        $fine = 0;
+        if($diff>10){
+            $diff-=10;
+            $fine = $diff*10;
+        }
+        $book_taken->delete();
+        return redirect()->back()->with('msg', 'Your Fine is '.$fine.' taka');
     }
 
     public function viewAllOrders(){
